@@ -1,0 +1,48 @@
+package com.Interface;
+
+import java.util.List;
+import java.util.Map;
+
+import com.Vo.Accessory;
+import com.Vo.Actplan;
+import com.Vo.Actreturn;
+
+public interface BllInterface {
+
+	//用户登入(用户电话，用户密码，用户类型)
+	int UserLogin(String userHone,String userPwd, int userType);
+	
+	//创建活动（actplan实体）---返回值为活动计划编号
+	int CreateActplan(Actplan CActplan);
+	
+	//创建活动同时创建活动结构表（父节点编号，子节点编号）
+	boolean CreateFormation(int parentId, int childId);
+	
+	//查询本阶层所有活动(阶层编号)
+	List<Actplan> QueryAllActplan(int secId);
+	
+	//根据编号查询活动（活动编号）
+	Actplan QueryActplanBySecId(int SecId);
+	
+	//修改活动计划（Actplan实体）
+	boolean UpdateActplan(Actplan CActplan);
+	
+	//根据活动编号查询活动的反馈的素材(计划编号)
+	Map<String, Object> QueryActreturnByPlanId(int planId);
+	
+	//根据活动反馈编号查询附件（反馈编号）
+	List<Accessory> QueryAccessoryByRetId(int retId);
+	
+	//发布活动（活动计划编号）
+	boolean PulishActplan(int planId);
+	
+	//查询已发布活动(所属层编号，发布状态)0：未发布1：已发布3：已结束
+	List<Actplan> QueryPublishActplan(int secId, int planType);
+	
+	//创建反馈
+	boolean CreateActreturn(Actreturn CActreturn);
+	
+	//创建反馈附表
+	boolean CreateAccessory(Accessory CAccessory);
+	
+}

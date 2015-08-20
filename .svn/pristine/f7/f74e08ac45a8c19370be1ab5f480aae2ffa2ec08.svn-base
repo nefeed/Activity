@@ -1,0 +1,129 @@
+package com.Facade;
+
+import java.util.List;
+import java.util.Map;
+
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.Bll.BllUser;
+import com.Factory.BllFactory;
+import com.Factory.HibernateSessionFactory;
+import com.Interface.BllInterface;
+import com.Vo.Accessory;
+import com.Vo.Actplan;
+import com.Vo.Actreturn;
+import com.Vo.User;
+
+
+public class BllFacade implements BllInterface{
+
+	//单例
+	private static BllFacade bllFacade = new BllFacade();
+	
+	private BllFacade(){};
+	
+	public static BllFacade getBllFacadeInstance(){
+		return bllFacade;
+	}
+	
+	//调用bll层  单例模式
+	private BllFactory bllFactory = BllFactory.getBllFactory();
+	BllUser bllUser = bllFactory.getInstance(BllUser.class);
+
+	@Override
+	public int UserLogin(String userPhone, String userPwd, int userType) {
+		// TODO Auto-generated method stub
+		int success = 0;
+		Session session = HibernateSessionFactory.getSession();
+		session.clear();
+		try{
+			session.beginTransaction();
+			String sql = "from User";
+			Query query = session.createQuery(sql);
+			List<User> user = query.list();
+			for(User u : user){
+				if(u.getM_userPhone().equals(userPhone)&&u.getM_userPwd().equals(userPwd))
+				{
+					System.out.println(userPhone+"登入成功！");
+					success = 1;
+				}
+			}
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return success;
+
+	}
+
+	@Override
+	public int CreateActplan(Actplan CActplan) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean CreateFormation(int parentId, int childId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Actplan> QueryAllActplan(int secId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Actplan QueryActplanBySecId(int SecId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean UpdateActplan(Actplan CActplan) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Map<String, Object> QueryActreturnByPlanId(int planId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Accessory> QueryAccessoryByRetId(int retId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean PulishActplan(int planId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Actplan> QueryPublishActplan(int secId, int planType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean CreateActreturn(Actreturn CActreturn) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean CreateAccessory(Accessory CAccessory) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+}

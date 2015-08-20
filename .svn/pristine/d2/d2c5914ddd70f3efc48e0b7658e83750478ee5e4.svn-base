@@ -1,0 +1,57 @@
+package com.Dao;
+
+import java.util.List;
+
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.Factory.HibernateSessionFactory;
+import com.Vo.Actplan;
+
+public class DaoActplan extends DaoAbstract{
+
+	public boolean Save(Actplan actplan) {
+		// TODO Auto-generated method stub
+		Session session = HibernateSessionFactory.getSession();
+		session.clear();
+		try{
+			session.beginTransaction();
+			session.save(actplan);
+			session.getTransaction().commit();
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
+
+	public List<Actplan> QueryById(int m_publishId) {
+		// TODO Auto-generated method stub
+		Session s = HibernateSessionFactory.getSession();
+		try{
+			String sql = "from Actplan where m_publishId"+m_publishId+"by m_planId desc";
+			
+			s.clear();
+			s.beginTransaction();
+			
+			Query query = s.createQuery(sql);
+			List<Actplan> actplan = query.list();
+			return actplan;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public boolean Update(Actplan actplan) {
+		// TODO Auto-generated method stub
+		int id = actplan.getM_planId();
+		
+		Session s = HibernateSessionFactory.getSession();
+		s.beginTransaction();
+		Actplan plan = (Actplan)s.get(Actplan.class, id-1);
+		s.update(actplan);
+		s.getTransaction().commit();
+		return false;
+	}
+}

@@ -1,0 +1,91 @@
+package com.Interface;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import com.Vo.Accessory;
+import com.Vo.Customer;
+import com.Vo.Mapping;
+public interface BllInterface {
+
+	//遍历用户，验证登入
+	Map<String, Object> QueryByUserPhone(String m_userPhone, String m_userPwd);
+	
+	//根据用户secId返回secType
+	int CheckUser(int m_secId);
+	//创建新活动
+	Map<String, Object> CreateActplan(int m_createId, String m_planName, String m_planGoal,String m_planContent, 
+			String m_address, double m_planBudget,int m_publishId, Date m_createDate, 
+			int m_planType, int m_planMold, int m_secId,int[] m_receive);
+	//发布活动
+	boolean PublishActplan(int m_planId, int m_createId, String m_planName,
+			String m_planGoal, String m_planContent, String m_address,
+			double m_planBudget, int m_publishId, Date m_createDate,
+			int m_planType,int m_planMold, int m_secId,int[] m_receive);
+
+	//修改活动
+	boolean UpdateActplan(int m_planId, int m_createId, String m_planName,
+			String m_planGoal, String m_planContent, String m_address,
+			double m_planBudget, int m_publishId, Date m_createDate,
+			int m_planType,int m_planMold, int m_secId,int[] m_receive);
+	
+	//上传活动反馈
+	boolean UpActreturn(int m_secId, int m_planId, int m_userId,
+			String m_accAddress, String m_accContent, int m_accType,
+			Date m_createTime, String m_accImage,
+			String m_accDescribe);
+	
+
+	//修改附件表信息
+	boolean UpdateAccessory(Accessory accessory);
+	
+	//通过子节点查找父节点，返回secId
+	int QueryParentIdByChildId(int m_secId);
+	
+	//通过parentId遍历能够看到的活动
+	List<Map<String, Object>> QueryById(int m_secId);
+	
+
+	//通过planId遍历反馈
+	List<Map<String, Object>> QueryActreturnByPlanId(int m_secId,int m_planId);
+	
+	//寻找用户的下属部门
+	List<Map<String, Object>> ClickButton(int m_secId);
+	
+	//遍历所有本活动回复表的附件表
+	List<Map<String, Object>> QueryAccessory(int m_retId);
+	
+	//增加客户表内容
+	boolean AddCustomer(String m_cusName, int m_cusType, String m_cusAddress,
+			String m_cusTel);
+	
+	//修改客户表信息
+	boolean UpdateCustomer(Customer customer);
+	
+	//增加客户员工对应
+	boolean AddMapping(Mapping mapping);
+	
+	//修改客服员工对应
+	boolean UpdateMapping(Mapping mapping);
+
+	//遍历本活动客户员工对应信息
+	List<Map<String, Object>> QueryMapping(int m_planId);
+	
+	//根据发布者ID和活动状态遍历活动
+	List<Map<String, Object>> QueryActplanByPlanType(int mPublishId, int mPlanType);
+
+	//省局遍历自己创建的活动
+	List<Map<String, Object>> QueryMyActplan(int m_createId);
+	
+	//省局结束自己的活动
+	boolean FinishActplan(int m_planId);
+
+	//通过活动Id查找活动详情
+	List<Map<String, Object>> QueryActplanByPlanId(int m_planId);
+
+	//通过营业厅secId遍历员工客户对应关系
+	List<Map<String, Object>> QueryMappingByBusSecId(int m_busSecId);
+
+	
+}

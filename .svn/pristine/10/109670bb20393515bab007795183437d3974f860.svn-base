@@ -1,0 +1,30 @@
+package com.Bll;
+
+import com.Dao.DaoCustomer;
+import com.Factory.DaoFactory;
+import com.Vo.Customer;
+
+public class BllCustomer extends BllAbstract{
+	private DaoFactory daoF = DaoFactory.getDaoFactory();
+	private DaoCustomer daoCustomer = daoF.getInstance(DaoCustomer.class);
+	//增加客户表内容
+	public boolean AddCustomer(String m_cusName, int m_cusType,
+			String m_cusAddress, String m_cusTel) {
+		// TODO Auto-generated method stub
+		Customer customer = new Customer();
+		customer.setM_cusName(m_cusName);
+		customer.setM_cusType(m_cusType);
+		customer.setM_cusAddress(m_cusAddress);
+		customer.setM_cusTel(m_cusTel);
+		
+		boolean check = daoCustomer.Save(customer);
+		return check;
+	}
+	//修改客户表信息
+	public boolean UpdateCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+		boolean check = daoCustomer.UpdateCustomer(customer);
+		return check;
+	}
+
+}

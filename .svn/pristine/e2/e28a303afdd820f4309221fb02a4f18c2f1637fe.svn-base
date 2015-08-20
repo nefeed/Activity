@@ -1,0 +1,44 @@
+package com.Bll;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.Dao.DaoUser;
+import com.Factory.DaoFactory;
+import com.Vo.User;
+
+public class BllUser extends BllAbstract{
+	private DaoFactory daoF = DaoFactory.getDaoFactory();
+	private DaoUser daoUser = daoF.getInstance(DaoUser.class);
+	
+	//登入匹配
+	public Map<String, Object> QueryByPhone(String userPhone,String userPwd){
+		int result = 4;
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<User> userLogin = daoUser.UserLogin(userPhone);
+		if(userLogin.size()!=0){
+			if(userLogin.get(0).getM_userPwd().equals(userPwd)){
+				result = 1;
+			}else{
+				result = 2;
+			}
+		}else{
+			result = 3;
+		}
+		try{
+			map.put("result", result);
+			map.put("m_secId", userLogin.get(0).getM_secId());
+			map.put("userName", userLogin.get(0).getM_userName());
+			map.put("userid",userLogin.get(0).getM_userId());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	//通过获取的信息确定返回的用户的所属层（省局，市局，县局，营业点）
+	public int CheckUser(int userid){
+		return daoUser.CheckUser(userid);
+	}
+}

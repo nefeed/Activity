@@ -1,0 +1,50 @@
+package com.Interface;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import com.Vo.Accessory;
+import com.Vo.Actplan;
+import com.Vo.Actreturn;
+
+public interface BllInterface {
+
+	//遍历用户，验证登入
+	Map<String, Object> QueryByPhone(String userPhone, String userPwd);
+	
+	//根据用户secId返回secType
+	int CheckUser(int m_secId);
+	//创建新活动
+	boolean CreateActplan(int m_createId, String m_planName, String m_planGoal,
+			String m_planContent, String m_address, double m_planBudget,
+			int m_publishId, Date m_createDate, int m_planType, int m_secId);
+	//发布活动
+	boolean PublishActplan(int m_planId, int m_createId, String m_planName,
+			String m_planGoal, String m_planContent, String m_address,
+			double m_planBudget, int m_publishId, Date m_createDate,
+			int m_planType, int m_secId);
+
+	//修改活动
+	boolean UpdateActplan(int m_planId, int m_createId, String m_planName,
+			String m_planGoal, String m_planContent, String m_address,
+			double m_planBudget, int m_publishId, Date m_createDate,
+			int m_planType, int m_secId);
+	
+	//通过子类Id查找
+	List<Map<String, Object>> QueryById(int parentId);
+	
+	//上传活动反馈
+	boolean UpActreturn(int m_retId, int m_secId, int m_planId, int m_userId,
+			String m_retAddress, String m_retContent, int m_retType,
+			Date m_createTime, int m_accId, String m_accImage,
+			String m_accdescribe);
+	
+	//通过子节点查找父节点，返回secId
+	int QueryParentIdByChildId(int m_secId);
+
+	//通过planId遍历反馈
+	List<Map<String, Object>> QueryActreturnByPlanId(int planId);
+
+	
+}

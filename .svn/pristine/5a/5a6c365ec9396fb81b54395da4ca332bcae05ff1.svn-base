@@ -1,0 +1,44 @@
+package com.Dao;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.Factory.HibernateSessionFactory;
+import com.Vo.Actreturn;
+
+public class DaoActreturn extends DaoAbstract{
+
+	public List<Actreturn> QueryById(int m_planId) {
+		// TODO Auto-generated method stub
+		Session s = HibernateSessionFactory.getSession();
+		try{
+			String sql = "from Actreturn where m_planId="+m_planId+"by m_retId desc";
+			
+			s.clear();
+			s.beginTransaction();
+			Query query = s.createQuery(sql);
+			List<Actreturn> actreturn = query.list();
+			return actreturn;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public boolean Save(Actreturn actreturn) {
+		// TODO Auto-generated method stub
+		Session s = HibernateSessionFactory.getSession();
+		try{
+			s.clear();
+			s.beginTransaction();
+			s.save(actreturn);
+			s.getTransaction().commit();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+}

@@ -1,0 +1,147 @@
+package com.Bll;
+
+
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.Dao.DaoActplan;
+import com.Dao.DaoFormation;
+import com.Factory.DaoFactory;
+import com.Vo.Actplan;
+import com.Vo.Formation;
+
+public class BllActplan extends BllAbstract{
+	private DaoFactory daoFactory = DaoFactory.getDaoFactory();
+	private DaoActplan daoActplan = daoFactory.getInstance(DaoActplan.class);
+	private DaoFormation daoFormation = daoFactory.getInstance(DaoFormation.class);
+	
+	
+	//创建活动
+	public boolean CreateActplan(int m_createId,String m_planName,String m_planGoal,String m_planContent,String m_address,
+			double m_planBudget,int m_publishId,Date m_createDate,int m_planType,int m_secId){
+		Actplan actplan = new Actplan();
+		Formation formation = new Formation();
+		
+		//创建活动计划表		
+		actplan.setM_createId(m_createId);
+		actplan.setM_planName(m_planName);
+		actplan.setM_planGoal(m_planGoal);
+		actplan.setM_planContent(m_planContent);
+		actplan.setM_address(m_address);
+		actplan.setM_planBudget(m_planBudget);
+		actplan.setM_publishId(m_publishId);
+		actplan.setM_createDate(m_createDate);	
+		actplan.setM_planType(m_planType);
+		actplan.setM_secId(m_secId);
+		
+		boolean check = daoActplan.Save(actplan);	
+			
+		//创建活动结构表
+		int m_parentId = 0;
+		int m_childId = actplan.getM_planId();
+		
+		formation.setM_parentId(m_parentId);			
+		formation.setM_childId(m_childId);
+			
+		daoFormation.Save(formation);
+		return check;
+	}
+
+	//市局及以下发布活动
+	public boolean PublishActplan(int m_planId, int m_createId,String m_planName, String m_planGoal, String m_planContent,
+			String m_address, double m_planBudget, int m_publishId,Date m_createDate, int m_planType, int m_secId) {
+		
+		Actplan actplan = new Actplan();
+		Formation formation = new Formation();
+		
+		//创建活动计划表		
+		actplan.setM_createId(m_createId);
+		actplan.setM_planName(m_planName);
+		actplan.setM_planGoal(m_planGoal);
+		actplan.setM_planContent(m_planContent);
+		actplan.setM_address(m_address);
+		actplan.setM_planBudget(m_planBudget);
+		actplan.setM_publishId(m_publishId);
+		actplan.setM_createDate(m_createDate);	
+		actplan.setM_planType(m_planType);
+		actplan.setM_secId(m_secId);
+		
+		boolean check = daoActplan.Save(actplan);	
+		
+		//创建活动结构表
+		int m_parentId = m_planId;
+		int m_childId = actplan.getM_planId();
+		
+		formation.setM_parentId(m_parentId);			
+		formation.setM_childId(m_childId);
+			
+		daoFormation.Save(formation);
+		return check;
+	}
+
+	public int QueryParentIdByChildId(int m_secId) {
+		// TODO Auto-generated method stub
+		DaoFormation daoFormation = new DaoFormation();
+		
+		int parentId = DaoFormation.QueryParentIdByChildId(m_secId);
+		
+		return parentId;
+	}
+
+	public List<Map<String, Object>> QueryById(int parentId) {
+		// TODO Auto-generated method stub
+		DaoActplan daoActplan = new DaoActplan();
+		
+		List<Actplan> actplan = daoActplan.QueryById(parentId);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		for(int i=0;i<actplan.size();i++){
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("m_planId", actplan.get(i).getM_planId());
+			map.put("m_createId", actplan.get(i).getM_createId());
+			map.put("m_planName", actplan.get(i).getM_planName());
+			map.put("m_planGoal", actplan.get(i).getM_planGoal());
+			map.put("m_planContent", actplan.get(i).getM_planContent());
+			map.put("m_address", actplan.get(i).getM_address());
+			map.put("m_planBudget", actplan.get(i).getM_planBudget());
+			map.put("m_publishId", actplan.get(i).getM_publishId());
+			map.put("m_createDate", actplan.get(i).getM_createDate());
+			map.put("m_planType", actplan.get(i).getM_planType());
+			map.put("m_secId", actplan.get(i).getM_secId());
+			
+			list.add(map);
+		}
+		return list;
+	}
+
+	public boolean UpdateActplan(int m_planId, int m_createId,
+			String m_planName, String m_planGoal, String m_planContent,
+			String m_address, double m_planBudget, int m_publishId,
+			Date m_createDate, int m_planType, int m_secId) {
+		// TODO Auto-generated method stub
+		Actplan actplan = new Actplan();
+		Formation formation = new Formation();
+		
+		//修改活动计划表
+		actplan.setM_planId(m_planId);
+		actplan.setM_createId(m_createId);
+		actplan.setM_planName(m_planName);
+		actplan.setM_planGoal(m_planGoal);
+		actplan.setM_planContent(m_planContent);
+		actplan.setM_address(m_address);
+		actplan.setM_planBudget(m_planBudget);
+		actplan.setM_publishId(m_publishId);
+		actplan.setM_createDate(m_createDate);	
+		actplan.setM_planType(m_planType);
+		actplan.setM_secId(m_secId);
+		
+		boolean check = daoActplan.Update(actplan);	
+		
+		return check;
+	}
+	
+}

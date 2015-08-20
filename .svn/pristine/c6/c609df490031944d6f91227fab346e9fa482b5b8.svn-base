@@ -1,0 +1,126 @@
+package com.Facade;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.Bll.BllActplan;
+import com.Bll.BllActreturn;
+import com.Bll.BllUser;
+import com.Factory.BllFactory;
+import com.Factory.HibernateSessionFactory;
+import com.Interface.BllInterface;
+import com.Vo.Accessory;
+import com.Vo.Actplan;
+import com.Vo.Actreturn;
+import com.Vo.User;
+
+
+public class BllFacade implements BllInterface{
+
+	//单例
+	private static BllFacade bllFacade = new BllFacade();
+	
+	private BllFacade(){};
+	
+	public static BllFacade getBllFacadeInstance(){
+		return bllFacade;
+	}
+
+	//调用Bll层   单例模式
+	private BllFactory bllFactory = BllFactory.getBllFactory();
+
+	//遍历用户，验证登入
+	@Override
+	public Map<String, Object> QueryByPhone(String userPhone, String userPwd) {
+		// TODO Auto-generated method stub
+		BllUser bllUser = bllFactory.getInstance(BllUser.class);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map = bllUser.QueryByPhone(userPhone, userPwd);
+		return map;
+	}
+	//根据用户secId返回secType
+	@Override
+	public int CheckUser(int m_secId) {
+		// TODO Auto-generated method stub
+		BllUser bllUser = bllFactory.getInstance(BllUser.class);
+		return bllUser.CheckUser(m_secId);
+	}
+	@Override
+	public List<Map<String, Object>> QueryActreturnByPlanId(int planId) {
+		// TODO Auto-generated method stub
+		BllActreturn bllActreturn = bllFactory.getInstance(BllActreturn.class);
+		List<Map<String, Object>> list = bllActreturn.QueryByPlanId(planId);
+		return list;
+	}
+	//创建新活动
+	@Override
+	public boolean CreateActplan(int m_createId, String m_planName,
+			String m_planGoal, String m_planContent, String m_address,
+			double m_planBudget, int m_publishId, Date m_createDate,
+			int m_planType, int m_secId) {
+		// TODO Auto-generated method stub
+		BllActplan bllActplan = bllFactory.getInstance(BllActplan.class);
+		boolean check = bllActplan.CreateActplan(m_createId, m_planName, m_planGoal, m_planContent, 
+				m_address, m_planBudget, m_publishId, m_createDate, m_planType, m_secId);
+		return check;
+	}
+	//修改活动
+	@Override
+	public boolean UpdateActplan(int m_planId, int m_createId,
+			String m_planName, String m_planGoal, String m_planContent,
+			String m_address, double m_planBudget, int m_publishId,
+			Date m_createDate, int m_planType, int m_secId) {
+		// TODO Auto-generated method stub
+		BllActplan bllActplan = bllFactory.getInstance(BllActplan.class);
+		boolean check = bllActplan.UpdateActplan(m_planId, m_createId, m_planName, m_planGoal, m_planContent, m_address, 
+				m_planBudget, m_publishId, m_createDate, m_planType, m_secId);
+		return check;
+	}
+	@Override
+	public boolean PublishActplan(int m_planId, int m_createId,
+			String m_planName, String m_planGoal, String m_planContent,
+			String m_address, double m_planBudget, int m_publishId,
+			Date m_createDate, int m_planType, int m_secId) {
+		// TODO Auto-generated method stub
+		BllActplan bllActplan = new BllActplan();
+		boolean check = bllActplan.PublishActplan(m_planId, m_createId, m_planName, m_planGoal, m_planContent, 
+				m_address, m_planBudget, m_publishId, m_createDate, m_planType, m_secId);
+		return check;
+	}
+	//通过子类Id查找
+	@Override
+	public List<Map<String, Object>> QueryById(int parentId) {
+		// TODO Auto-generated method stub
+		BllActplan bllActplan = bllFactory.getInstance(BllActplan.class);
+		List<Map<String, Object>> list = bllActplan.QueryById(parentId);
+		return list;
+	}
+	//上传活动反馈
+	@Override
+	public boolean UpActreturn(int m_retId, int m_secId, int m_planId,
+			int m_userId, String m_retAddress, String m_retContent,
+			int m_retType, Date m_createTime, int m_accId, String m_accImage,
+			String m_accdescribe) {
+		// TODO Auto-generated method stub
+		BllActreturn bllActreturn = bllFactory.getInstance(BllActreturn.class);
+		boolean check = bllActreturn.UpActreturn(m_retId, m_secId, m_planId, m_userId, m_retAddress,
+				m_retContent, m_retType, m_createTime, m_accId, m_accImage, m_accdescribe);
+		return check;
+	}
+	//通过子节点查找父节点，返回secId
+	@Override
+	public int QueryParentIdByChildId(int m_secId) {
+		// TODO Auto-generated method stub
+		BllActplan bllActplan = bllFactory.getInstance(BllActplan.class);
+		int parentId = bllActplan.QueryParentIdByChildId(m_secId);
+		return parentId;
+	}
+
+	
+}

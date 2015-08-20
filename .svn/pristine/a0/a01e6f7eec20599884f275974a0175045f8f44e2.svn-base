@@ -1,0 +1,5 @@
+package com.Bll;
+
+public class BllUser extends BllAbstract{
+
+}

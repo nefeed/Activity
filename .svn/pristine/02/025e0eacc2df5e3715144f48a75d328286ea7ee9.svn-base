@@ -1,0 +1,60 @@
+package com.Dao;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.Factory.HibernateSessionFactory;
+import com.Vo.Receive;
+
+public class DaoReceive extends DaoAbstract{
+
+	public void Save(Receive receive) {
+		// TODO Auto-generated method stub
+		Session s = HibernateSessionFactory.getSession();
+		
+		try{
+			s.clear();
+			s.beginTransaction();
+			s.save(receive);
+			s.getTransaction().commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("unused")
+	public void DeleteOld(int m_planId) {
+		// TODO Auto-generated method stub
+		Session s = HibernateSessionFactory.getSession();
+		String sql = "delete from Receive where m_planId="+m_planId;
+		try{
+			s.clear();
+			s.beginTransaction();
+			Query query = s.createQuery(sql);
+			s.getTransaction().commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Receive> QueryBySecId(int m_secId) {
+		// TODO Auto-generated method stub
+		Session s = HibernateSessionFactory.getSession();
+		String sql = "from Receive where m_secId=?";
+		try{
+			s.clear();
+			s.beginTransaction();
+			Query query = s.createQuery(sql).setInteger(0, m_secId);
+			List<Receive> receive = query.list();
+			s.getTransaction().commit();
+			return receive;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+}

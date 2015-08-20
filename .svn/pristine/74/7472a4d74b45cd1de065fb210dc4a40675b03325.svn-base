@@ -1,0 +1,43 @@
+$(function(){
+	alert("dddd");
+	alert(planId);
+	var m_planId = planId;
+	$.getJSON("./QueryActplanByPlanId",{
+		m_planId:m_planId,
+	},function(json){
+		if(json[0].check){
+			alert("显示成功！");
+		}else{
+			alert("显示失败！");
+		}
+	})
+	$.getJSON("json/plan.json",function(json){
+		$("#m_planId").val(json[0].m_planId);
+		$("#m_createId").val(json[0].m_createId);
+		$("#m_planName").val(json[0].m_planName);
+		$("#m_planGoal").val(json[0].m_planGoal);
+		$("#m_planContent").val(json[0].m_planContent);
+		$("#m_address").val(json[0].m_address);
+		$("#m_planBudget").val(json[0].m_planBudget);
+		$("#m_publishId").val(json[0].m_publishId);
+		$("#m_createDate").val(json[0].m_createDate);
+		$("#m_planType").val(json[0].m_planType);
+		$("#m_secId").val(json[0].m_secId);
+//		var accessory=accessory.length;                
+//		for(var i=0;i<jaon.length;i=i+1){
+//			catemp+="<option id='"+json[i].m_accId+"'>"+"附件"+json[i].m_accId+"</option>"
+//		}
+//		$("#back").append(catemp);
+	})
+})
+function back(){
+	var m_accId=document.getElementById("back").value;
+	$.getJSON("./",{
+		m_accId:m_accId,
+	})	
+}
+
+
+
+
+

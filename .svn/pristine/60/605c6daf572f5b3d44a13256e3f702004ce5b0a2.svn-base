@@ -1,0 +1,31 @@
+package com.Tools;
+
+import java.util.Map;
+
+import org.junit.Test;
+
+import com.Facade.BllFacade;
+import com.Factory.BllFacadeFactory;
+import com.Interface.BllInterface;
+
+public class test {
+	
+	private BllFacadeFactory bllFacadeFactory  =  BllFacadeFactory.getbBllFactoryInstance();
+	private BllInterface xx  = bllFacadeFactory.getInterface();
+	
+	private BllFacade bllFacade = BllFacade.getBllFacadeInstance();
+	@Test
+	public void text(){
+		String Phone = "565211";
+		String Pwd = "123456";
+		int Type = 1;
+//		Scanner in = new Scanner(System.in);
+//		Phone = in.nextLine();
+//		Pwd = in.nextLine();
+//		Type = in.nextInt();
+		
+		System.out.println("输入的数据为："+Phone+"\n"+Pwd+"\n"+Type);
+		Map<String, Object> i = bllFacade.QueryByPhone(Phone, Pwd);
+		System.out.println(i);
+	}
+}

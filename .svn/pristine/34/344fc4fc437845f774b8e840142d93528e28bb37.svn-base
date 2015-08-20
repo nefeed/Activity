@@ -1,0 +1,51 @@
+package com.Servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.Bll.BllActplan;
+import com.Factory.BllFacadeFactory;
+import com.Interface.BllInterface;
+
+@SuppressWarnings("serial")
+public class ServletPublishActplan extends HttpServlet{
+	
+	private BllFacadeFactory bllFacadeFactory= BllFacadeFactory.getbBllFactoryInstance();
+	BllInterface bllInterface = bllFacadeFactory.getInterface();
+	
+	public void PublishActplan(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+	
+		int m_planId = Integer.parseInt(request.getParameter("m_planId"));      //活动计划ID
+		int m_createId = Integer.parseInt(request.getParameter("m_createId"));  //创建者编号，获取省局ID
+		String m_planName = new String(request.getParameter("m_planName"));		//活动名称
+		String m_planGoal = new String(request.getParameter("m_planGoal"));		//活动目的
+		String m_planContent = new String(request.getParameter("m_planContent"));//活动计划内容
+		String m_address = new String(request.getParameter("m_address"));		//地址
+		double m_planBudget = Double.parseDouble(request.getParameter("m_planBudget")); //预算
+		int m_publishId = Integer.parseInt(request.getParameter("m_publishId"));		//发布者编号，获取帐号ID
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date m_createDate = new Date();											//创建时间
+		
+		int m_planType = Integer.parseInt(request.getParameter("m_planType"));  //发布状态
+		int m_secId = Integer.parseInt(request.getParameter("m_secId"));		//阶层编号，获取帐号的阶层编号
+		
+	
+		boolean check = bllInterface.PublishActplan(m_planId,m_createId, m_planName, m_planGoal, m_planContent, m_address,
+				m_planBudget, m_publishId, m_createDate, m_planType, m_secId);
+		System.out.println(check);
+		PrintWriter pw = response.getWriter();
+		pw.println(check);
+		pw.close();
+		
+	}
+}

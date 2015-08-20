@@ -1,0 +1,36 @@
+package com.Tools;
+
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.junit.Test;
+
+import com.Facade.BllFacade;
+import com.Factory.BllFacadeFactory;
+import com.Factory.BllFactory;
+import com.Interface.BllInterface;
+
+public class test {
+
+	@Test
+	public void Table(){
+		new SchemaExport(new AnnotationConfiguration().configure()).create(true, true);
+	}
+	private BllFacadeFactory bllFacadeFactory  =  BllFacadeFactory.getbBllFactoryInstance();
+	private BllInterface xx  = bllFacadeFactory.getInterface();
+	
+	@Test
+	public void text(){
+		String Phone = "565211";
+		String Pwd = "123456";
+		int Type = 1;
+//		Scanner in = new Scanner(System.in);
+//		Phone = in.nextLine();
+//		Pwd = in.nextLine();
+//		Type = in.nextInt();
+		
+		System.out.println("输入的数据为："+Phone+"\n"+Pwd+"\n"+Type);
+		int i = xx.UserLogin(Phone, Pwd, Type);
+		System.out.println(i);
+	}
+
+}

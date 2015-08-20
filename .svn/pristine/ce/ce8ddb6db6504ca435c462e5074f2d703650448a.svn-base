@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name></display-name>
+  
+  <!-- 创建新活动 -->
+    <servlet>
+    <servlet-name>AddActplan</servlet-name>
+    <servlet-class>com.Servlet.ServletAddActplan</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>AddActplan</servlet-name>
+    <url-pattern>/AddActplan</url-pattern>
+  </servlet-mapping>
+  
+    <!-- 发布新活动 -->
+    <servlet>
+    <servlet-name>PublishActplan</servlet-name>
+    <servlet-class>com.Servlet.ServletPublishActplan</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>PublishActplan</servlet-name>
+    <url-pattern>/PublishActplan</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 修改活动内容 -->
+    <servlet>
+    <servlet-name>UpdateActplan</servlet-name>
+    <servlet-class>com.Servlet.ServletUpdateActplan</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UpdateActplan</servlet-name>
+    <url-pattern>/UpdateActplan</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 遍历所有能接受到还未发布的活动 -->
+    <servlet>
+    <servlet-name>QueryUnPublishActplan</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryUnPublishActplan</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryUnPublishActplan</servlet-name>
+    <url-pattern>/QueryUnPublishActplan</url-pattern>
+  </servlet-mapping>
+ 
+       <!-- 遍历所有能接受到并已发布的活动 -->
+    <servlet>
+    <servlet-name>QueryPublishActplan</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryPublishActplan</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryPublishActplan</servlet-name>
+    <url-pattern>/QueryPublishActplan</url-pattern>
+  </servlet-mapping>
+  
+ 
+     <!-- 创建新客户 -->
+    <servlet>
+    <servlet-name>AddCustomer</servlet-name>
+    <servlet-class>com.Servlet.ServletAddCustomer</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>AddCustomer</servlet-name>
+    <url-pattern>/AddCustomer</url-pattern>
+  </servlet-mapping>
+   
+    <!-- 创建新客户员工对应关系 -->
+    <servlet>
+    <servlet-name>AddMapping</servlet-name>
+    <servlet-class>com.Servlet.ServletAddMapping</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>AddMapping</servlet-name>
+    <url-pattern>/AddMapping</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 点击发布或创建或修改，返回下属部门信息 -->
+    <servlet>
+    <servlet-name>ClickActplanButton</servlet-name>
+    <servlet-class>com.Servlet.ServletClickActplanButton</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ClickActplanButton</servlet-name>
+    <url-pattern>/ClickActplanButton</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 登录匹配 -->
+    <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.Servlet.ServletLogin</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 遍历所有附件表-->
+    <servlet>
+    <servlet-name>QueryAccessory</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryAccessory</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryAccessory</servlet-name>
+    <url-pattern>/QueryAccessory</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 遍历活动反馈 -->
+    <servlet>
+    <servlet-name>QueryActreturn</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryActreturn</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryActreturn</servlet-name>
+    <url-pattern>/QueryActreturn</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 遍历所有客户员工对应关系 -->
+    <servlet>
+    <servlet-name>QueryMapping</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryMapping</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryMapping</servlet-name>
+    <url-pattern>/QueryMapping</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 上传活动反馈  -->
+    <servlet>
+    <servlet-name>UpActreturn</servlet-name>
+    <servlet-class>com.Servlet.ServletUpActreturn</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UpActreturn</servlet-name>
+    <url-pattern>/UpActreturn</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 修改活动附件 -->
+    <servlet>
+    <servlet-name>UpdateAccessory</servlet-name>
+    <servlet-class>com.Servlet.ServletUpdateAccessory</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UpdateAccessory</servlet-name>
+    <url-pattern>/UpdateAccessory</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 修改客户表 -->
+    <servlet>
+    <servlet-name>UpdateCustomer</servlet-name>
+    <servlet-class>com.Servlet.ServletUpdateCustomer</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UpdateCustomer</servlet-name>
+    <url-pattern>/UpdateCustomer</url-pattern>
+  </servlet-mapping>
+  
+      <!-- 修改客户员工对应关系 -->
+    <servlet>
+    <servlet-name>UpdateMapping</servlet-name>
+    <servlet-class>com.Servlet.ServletUpdateMapping</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UpdateMapping</servlet-name>
+    <url-pattern>/UpdateMapping</url-pattern>
+  </servlet-mapping>
+  
+        <!-- 根据发布者ID和活动状态遍历活动 -->
+    <servlet>
+    <servlet-name>QueryActplanByPublishIdAndPlanType</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryActplanByPublishIdAndPlanType</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryActplanByPublishIdAndPlanType</servlet-name>
+    <url-pattern>/QueryActplanByPublishIdAndPlanType</url-pattern>
+  </servlet-mapping>
+  
+          <!-- 省局遍历自己创建的活动 -->
+    <servlet>
+    <servlet-name>QueryMyActplan</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryMyActplan</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryMyActplan</servlet-name>
+    <url-pattern>/QueryMyActplan</url-pattern>
+  </servlet-mapping>
+  
+            <!-- 省局结束自己创建的活动 -->
+    <servlet>
+    <servlet-name>FinishActplan</servlet-name>
+    <servlet-class>com.Servlet.ServletFinishActplan</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>FinishActplan</servlet-name>
+    <url-pattern>/FinishActplan</url-pattern>
+  </servlet-mapping>
+  
+              <!-- 根据活动Id遍历活动详情 -->
+    <servlet>
+    <servlet-name>QueryActplanByPlanId</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryActplanByPlanId</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryActplanByPlanId</servlet-name>
+    <url-pattern>/QueryActplanByPlanId</url-pattern>
+  </servlet-mapping>
+  
+                <!-- 通过营业厅secId遍历员工客户对应关系 -->
+    <servlet>
+    <servlet-name>QueryMappingByBusSecId</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryMappingByBusSecId</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryMappingByBusSecId</servlet-name>
+    <url-pattern>/QueryMappingByBusSecId</url-pattern>
+  </servlet-mapping>
+  
+  
+                  <!-- 通过营业厅secId遍历营业厅的客户名单  -->
+    <servlet>
+    <servlet-name>QueryCustomerBySecId</servlet-name>
+    <servlet-class>com.Servlet.ServletQueryCustomerBySecId</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>QueryCustomerBySecId</servlet-name>
+    <url-pattern>/QueryCustomerBySecId</url-pattern>
+  </servlet-mapping>
+  
+                    <!-- 修改客户状态为1  -->
+    <servlet>
+    <servlet-name>DeleteCustomer</servlet-name>
+    <servlet-class>com.Servlet.ServletDeleteCustomer</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>DeleteCustomer</servlet-name>
+    <url-pattern>/DeleteCustomer</url-pattern>
+  </servlet-mapping>
+  
+                      <!-- 查找本用户创建的最大的活动Id  -->
+    <servlet>
+    <servlet-name>MaxPlanId</servlet-name>
+    <servlet-class>com.Servlet.ServletMaxPlanId</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>MaxPlanId</servlet-name>
+    <url-pattern>/MaxPlanId</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

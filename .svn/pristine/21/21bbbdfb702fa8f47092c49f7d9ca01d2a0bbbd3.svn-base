@@ -1,0 +1,15 @@
+$(function(){
+	var m_planId=planId;
+	$.getJSON("./",{
+		m_planId:m_planId,
+	})
+	$.getJSON("./",function(){
+		for(i=0;i<json.length;i++){
+			var j=i+1;
+			catemp+="<tr><td height='8%' style='text-align:center'>"
+				+j+"</td><td height='8%' style='text-align:center;'>"
+				+json[i].m_secName+"</td><td height='8%' style='text-align:center;width:15%'>"+"</td></tr>"
+		}
+		$ca.append(catemp);
+	});
+})

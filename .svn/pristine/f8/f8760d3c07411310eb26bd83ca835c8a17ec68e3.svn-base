@@ -1,0 +1,126 @@
+$(function(){
+	var m_planId=planId;
+	$.getJSON("./",{
+		m_planId:m_planId,
+	},function(json){
+		if(json[0].check){
+			alert("显示成功！");
+			$("#m_planId").val(json[0].m_planId);
+			$("#m_createId").val(json[0].m_createId);
+			$("#m_planName").val(json[0].m_planName);
+			$("#m_planGoal").val(json[0].m_planGoal);
+			$("#m_planContent").val(json[0].m_planContent);
+			$("#m_address").val(json[0].m_address);
+			$("#m_planBudget").val(json[0].m_planBudget);
+			$("#m_publishId").val(json[0].m_publishId);
+			$("#m_createDate").val(json[0].m_createDate);
+			$("#m_planType").val(json[0].m_planType);
+			$("#m_secId").val(json[1].m_secId);
+			$("#m_planId1").val(json[1].m_planId);
+			$("#m_createId1").val(json[1].m_createId);
+			$("#m_planName1").val(json[1].m_planName);
+			$("#m_planGoal1").val(json[1].m_planGoal);
+			$("#m_planContent1").val(json[1].m_planContent);
+			$("#m_address1").val(json[1].m_address);
+			$("#m_planBudget1").val(json[1].m_planBudget);
+			$("#m_publishId1").val(json[1].m_publishId);
+			$("#m_createDate1").val(json[1].m_createDate);
+			$("#m_planType1").val(json[1].m_planType);
+			$("#m_secId1").val(json[0].m_secId);
+			
+			var $ca=$("#tb_activity");
+			var catemp="";
+			for(var i=0;i<json.length;i=i+1){
+				catemp+="<tr><td height='8%' style='text-align:center'>"
+					+j+"</td><td height='8%' style='text-align:center;'>"
+					+json[i].m_retId+"</td><td height='8%' style='text-align:center;width:15%'>"
+					+json[i].m_secName+"</td><td height='8%' style='text-align:center;width:15%'>"	
+					+json[i].m_planName+"</td><td height='8%' style='text-align:center;width:15%'>"
+					+json[i].m_userName+"</td><td height='8%' style='text-align:center;width:15%'>"
+					+"<select id='"+json[i].m_retId+"' style='width:60px;margin-top:-36px;margin-left:45px'> </select>"
+					+"<input type='button'value='查看' onclick='back("+json[i].m_retId+")'style='margin-top:-45px;margin-left:0px'/>"+"</td></tr>"
+			}
+		}else{
+			alert("显示失败！");
+		}
+	})
+})
+//显示选中的附件内容
+function back(m_retId){
+	var obj = document.getElementById("m_retId");
+	var s="";
+	for(var i=0;i<obj.length;i=i+1){
+		if(obj[i].checked){
+			s+=obj[i].value+",";
+		}
+	}
+}
+
+
+function unload(){
+	var m_accId=$("#m_accId").val();
+	var m_accImage=$("#m_accImage").val();
+	var m_retId=$("m_retId").val();
+	var m_accDescribe=$("#m_accDescribe").val();
+	var m_accAddress=$("#m_accAddress").val();
+	var m_accContent=("#m_accContent").val();
+	var m_accType=("#accType").val();
+	var m_createTime=("#m_createTime").val;
+	
+	if(m_accId==""){
+		alert("请输入附件编号");
+		$("#m_accId").focus();
+		return false;
+	}else if(m_accImage==""){
+		alert("请输入附件存储地址");
+		$("#m_accImage").focus();
+		return false;
+	}else if( m_retId==""){
+		alert("请输入回复编号");
+		$("# m_retId").focus();
+		return false;
+	}else if(m_accDescribe==""){
+		alert("请输入附件描述");
+		$("#m_accDescribe").focus();
+		return false;
+	}else if(m_accAddresst==""){
+		alert("请输入地点");
+		$("#m_accAddress").focus();
+		return false;
+	}else if(m_accContent==""){
+		alert("请输入文字描述");
+		$("m_accContent").focus();
+		return false;
+	}else if(m_accType==""){
+		alert("请输入发布者编号");
+		$("#m_accType").focus();
+		return false;
+	}else if(m_createTime==""){
+		alert("请输入创建时间");
+		$("#m_createTime").focus();
+		return false;
+	}
+	
+	$.getJSON("json/plan.json",{
+		m_accId:m_accId,
+		m_accImage:m_accImage,
+		m_retId:m_retId,
+		m_accDescribe:m_accDescribe,
+		m_accAddress:m_accAddress,
+		m_accContent:m_accContent,
+		m_accType:m_accType,
+		m_createTime:m_createTime,
+	},function(json){
+		if(json[0].checked){
+			alert("提交成功！");
+		}else{
+			alert("提交失败！");
+		}
+	})
+}
+
+
+
+
+
+

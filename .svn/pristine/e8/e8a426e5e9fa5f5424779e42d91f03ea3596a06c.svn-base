@@ -1,0 +1,46 @@
+package com.Vo;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
+//¸½¼þ
+@Entity
+@SequenceGenerator(name="AccessorySEQ", allocationSize=1, sequenceName="AccessorySEQDB")
+public class Accessory {
+
+	private int m_accId;			//±àºÅ
+	private String m_accImage;		//¸½¼þµØÖ·£¨Í¼Æ¬µØÖ·£©
+	private int m_retId;			//»Ø¸´±àºÅ
+	private String m_accDescribe;	//¸½¼þÃèÊö
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="AccessorySEQ")
+	public int getM_accId() {
+		return m_accId;
+	}
+	public void setM_accId(int m_accId) {
+		this.m_accId = m_accId;
+	}
+	public String getM_accImage() {
+		return m_accImage;
+	}
+	public void setM_accImage(String m_accImage) {
+		this.m_accImage = m_accImage;
+	}
+	public int getM_retId() {
+		return m_retId;
+	}
+	public void setM_retId(int m_retId) {
+		this.m_retId = m_retId;
+	}
+	public String getM_accDescribe() {
+		return m_accDescribe;
+	}
+	public void setM_accDescribe(String m_accDescribe) {
+		this.m_accDescribe = m_accDescribe;
+	}
+	
+}

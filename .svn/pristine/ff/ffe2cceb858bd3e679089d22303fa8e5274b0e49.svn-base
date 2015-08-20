@@ -1,0 +1,26 @@
+package com.Factory;
+
+import com.Facade.BllFacade;
+import com.Interface.BllInterface;
+
+public class BllFacadeFactory {
+
+	// 单例
+	private static BllFacadeFactory objbllFactory = new BllFacadeFactory();
+
+	private BllFacadeFactory() {
+	}
+
+	public static BllFacadeFactory getbBllFactoryInstance() {
+
+		return objbllFactory;
+	}
+
+	// bllinterface的具体实现
+
+	public BllInterface getInterface() {
+		BllInterface bllInterface = BllFacade.getBllFacadeInstance();
+
+		return bllInterface;
+	}
+}

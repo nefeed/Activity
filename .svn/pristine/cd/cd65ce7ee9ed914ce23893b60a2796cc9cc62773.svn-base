@@ -1,0 +1,100 @@
+var shi;
+var xian;
+var ting;
+$(function(){
+	var catemp="";
+	var m_planId=planId;
+	$.getJSON("./",{
+		m_planId:m_planId,
+	},function(json){
+		if(json[0].check){
+			alert("显示成功！");
+		}else{
+			alert("显示失败！");
+		}
+	})
+	$.getJSON("./",function(){//拿市数据
+		shi=json.length;
+		for(i=0;i<jaon.length;i++){
+			catemp+="<option id='"+json[i].m_secId+"'>"+json[i].m_secName+"</option>"
+		}
+		$("#shi").append(catemp);
+	});
+	$.getJSON("./",function(){
+		xian=json.length;
+		for(i=0;i<jaon.length;i++){
+			catemp+="<option id='"+json[i].m_secId+"'>"+json[i].m_secName+"</option>"
+		}
+		$("#xian").append(catemp);
+	});
+	$.getJSON("./",function(){
+		ting=json.length;
+		for(i=0;i<jaon.length;i++){
+			catemp+="<option id='3"+json[i].m_secId+"'>"+json[i].m_secName+"</option>"
+		}
+		$("#ting").append(catemp);
+	});
+})
+function check_shi(){
+	var m_secName=document.getElementById("shi").value;
+	$.getJSON("./",{
+		m_secName:m+secName,
+	})	
+}
+function check_xian(){
+	var m_secName=document.getElementById("xian").value;
+	$.getJSON("./",{
+		m_secName:m+secName,
+	})	
+}
+function check_ting(){
+	var m_secName=document.getElementById("ting").value;
+	$.getJSON("./",{
+		m_secName:m+secName,
+	})	
+}
+function search(){
+	for(i=0;i<shi;i++){
+		if ($("#json[i].m_secId").attr("selected") == true) {
+			shi=json[i].m_secId;
+		}
+	}
+	for(i=0;i<xian;i++){
+		if ($("#json[i].m_secId").attr("selected") == true) {
+			xian=json[i].m_secId;
+		}
+	}
+	for(i=0;i<ting;i++){
+		if ($("#json[i].m_secId").attr("selected") == true) {
+			ting=json[i].m_secId;
+		}
+	}
+	m_receiveAble=shi+","+xian+","+ting
+	
+	$.getJSON("json/plan.json",{
+		m_receiveAble:m_receiveAble,
+	},function(json){
+		if(json[0].check){
+			alert("提交成功！");
+			$.getJSON("./",function(json){ 
+				var caTemp="";
+				for(i=0;i<json.length;i++){   
+					var j=i+1;
+					caTemp="<tr style='text-align:center'><td height=10px >"
+						+j+"</td><td>"
+						+json[i].m_mapId+"</td><td>"
+						+json[i].m_planId+"</td><td>"
+						+json[i].m_userId+"</td><td>"
+						+json[i].m_cusId+"</td><td>"+"</td><tr>"
+				}	
+				$("#tb_activity").append(caTemp);
+			})
+		}else{
+			alert("提交失败！");
+		}
+	})
+	
+}
+
+
+

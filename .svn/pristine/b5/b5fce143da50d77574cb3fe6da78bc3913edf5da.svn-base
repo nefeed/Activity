@@ -1,0 +1,38 @@
+package com.Servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.Factory.BllFacadeFactory;
+import com.Interface.BllInterface;
+import com.Vo.Mapping;
+
+@SuppressWarnings("serial")
+public class ServletUpdateMapping extends HttpServlet{
+	private BllFacadeFactory bllFactory = BllFacadeFactory.getbBllFactoryInstance();
+	private BllInterface bllInterface = bllFactory.getInterface();
+	
+	public void Actreturn(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		
+		Mapping mapping = new Mapping();
+		
+		mapping.setM_mapId(Integer.getInteger(request.getParameter("m_mapId")));
+		mapping.setM_planId(Integer.getInteger(request.getParameter("m_planId")));
+		mapping.setM_userId(Integer.getInteger(request.getParameter("m_userId")));
+		mapping.setM_cusId(Integer.getInteger(request.getParameter("m_cusId")));
+		
+		boolean check = bllInterface.UpdateMapping(mapping);
+		System.out.println(check);
+		PrintWriter pw = response.getWriter();
+		pw.println(check);
+		pw.close();
+		
+	}
+}

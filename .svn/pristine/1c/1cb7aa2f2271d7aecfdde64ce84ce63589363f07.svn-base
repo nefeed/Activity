@@ -1,0 +1,34 @@
+package com.Dao;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.Factory.HibernateSessionFactory;
+import com.Vo.Section;
+
+public class DaoSection extends DaoAbstract{
+
+	@SuppressWarnings("unchecked")
+	public List<Section> QueryChildInfoByParentId(int m_secId) {
+		// TODO Auto-generated method stub
+		Session s = HibernateSessionFactory.getSession();
+		try{
+			String sql = "from Section where m_secParentId="+m_secId;
+			
+			s.clear();
+			s.beginTransaction();
+			
+			Query query = s.createQuery(sql);
+			
+			List<Section> section = query.list();
+			s.getTransaction().commit();
+			return section;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+}

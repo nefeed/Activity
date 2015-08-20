@@ -1,0 +1,97 @@
+var city="";
+var county="";
+var businesshall="";
+$(function(){
+	var catemp="";
+	var m_planId=planId;
+	$.getJSON("./",{
+		m_planId:m_planId,
+	},function(json){
+		if(json[0].check){
+			alert("显示成功！");
+		}else{
+			alert("显示失败！");
+		}
+	})
+	$.getJSON("./",function(){//拿市数据
+		city=json.length;
+		for(var i=0;i<jaon.length;i=i+1){
+			catemp+="<option id='"+json[i].m_secId+"'>"+json[i].m_secName+"</option>"
+		}
+		$("#city").append(catemp);
+	});
+	$.getJSON("./",function(){
+		county=json.length;
+		for(var i=0;i<jaon.length;i=i+1){
+			catemp+="<option id='"+json[i].m_secId+"'>"+json[i].m_secName+"</option>"
+		}
+		$("#county").append(catemp);
+	});
+	$.getJSON("./",function(){
+		businesshall=json.length;
+		for(var i=0;i<jaon.length;i=i+1){
+			catemp+="<option id='"+json[i].m_secId+"'>"+json[i].m_secName+"</option>"
+		}
+		$("#businesshall").append(catemp);
+	});
+})
+function check_city(){
+	var m_secName=document.getElementById("city").value;
+	$.getJSON("./",{
+		m_secName:m+secName,
+	})	
+}
+function check_county(){
+	var m_secName=document.getElementById("county").value;
+	$.getJSON("./",{
+		m_secName:m+secName,
+	})	
+}
+function check_businesshall(){
+	var m_secName=document.getElementById("businesshall").value;
+	$.getJSON("./",{
+		m_secName:m+secName,
+	})	
+}
+function search(){
+	for(var i=0;i<city;i=i+1){
+		if ($("#json[i].m_secId").attr("selected") == true) {
+			city=json[i].m_secId;
+		}
+	}
+	for(var i=0;i<county;i=i+1){
+		if ($("#json[i].m_secId").attr("selected") == true) {
+			county=json[i].m_secId;
+		}
+	}
+	for(var i=0;i<businesshall;i=i+1){
+		if ($("#json[i].m_secId").attr("selected") == true) {
+			businesshall=json[i].m_secId;
+		}
+	}
+	m_receiveAble=city+","+county+","+businesshall
+	
+	$.getJSON("json/plan.json",{
+		m_receiveAble:m_receiveAble,
+	},function(json){
+		if(json[0].check){
+			alert("提交成功！");
+			$.getJSON("./",function(json){ 
+				var caTemp="";
+				for(var i=0;i<json.length;i=i+1){   
+					var j=i+1;
+					caTemp="<tr style='text-align:center'><td height=10px >"
+						+j+"</td><td>"
+						+json[i].m_mapId+"</td><td>"
+						+json[i].m_planId+"</td><td>"
+						+json[i].m_userId+"</td><td>"
+						+json[i].m_cusId+"</td><td>"+"</td><tr>"
+				}	
+				$("#tb_activity").append(caTemp);
+			})
+		}else{
+			alert("提交失败！");
+		}
+	})
+	
+}

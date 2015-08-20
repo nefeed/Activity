@@ -1,0 +1,40 @@
+function Login(){
+	var m_userPhone=$("#userPhone").val();
+	var m_userPwd=$("#userPwd").val();
+
+	$.getJSON("./Login",{
+		m_userPhone:m_userPhone,
+		m_userPwd:m_userPwd,
+	},function(json){
+		if(json[0].check){
+			$(function(){
+				var catemp="";
+				$.getJSON("./js",function(json){
+					catemp+=json[0].m_secType;
+					if(catemp==0){
+						$("#body").load("jsp/shengju.jsp",function(){
+							
+						})
+						$("#body").load("jsp/shengju.jsp?m_userName="+json[0].m_userName);
+					}else if(catemp==1||catemp==2||catemp==3){
+						$("#body").load("jsp/shiju.jsp",function(){
+							
+						})
+						$("#body").load("jsp/shiju.jsp?m_userName="+json[0].m_userName);
+					}else{
+						$("#body").load("jsp/assistant.jsp",function(){
+							
+						})
+						$("#body").load("jsp/assistant.jsp?m_userName="+json[0].m_userName);
+					}
+				});
+			})
+		}else{
+		    alert("用户名或密码错误！");
+		}
+	})
+	
+}
+
+
+
